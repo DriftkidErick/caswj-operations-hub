@@ -45,21 +45,20 @@ public class EventService {
         Event existingEvent = getEventById(id);
 
         existingEvent.setTitle(updatedEvent.getTitle());
-
-        existingEvent.setProgramArea(updatedEvent.getProgramArea());
-
+        existingEvent.setOrganization(updatedEvent.getOrganization());
         existingEvent.setEventType(updatedEvent.getEventType());
-
+        existingEvent.setVenue(updatedEvent.getVenue());
         existingEvent.setEventDate(updatedEvent.getEventDate());
-
-        existingEvent.setLocation(updatedEvent.getLocation());
-
+        existingEvent.setStartTime(updatedEvent.getStartTime());
+        existingEvent.setEndTime(updatedEvent.getEndTime());
+        existingEvent.setTicketingRequired(updatedEvent.getTicketingRequired());
+        existingEvent.setPricingType(updatedEvent.getPricingType());
+        existingEvent.setPublicEventUrl(updatedEvent.getPublicEventUrl());
+        existingEvent.setMarketingTemplate(updatedEvent.getMarketingTemplate());
+        existingEvent.setNotes(updatedEvent.getNotes());
         existingEvent.setStatus(updatedEvent.getStatus());
 
-        existingEvent.setDescription(updatedEvent.getDescription());
-
         return eventRepository.save(existingEvent);
-
     }
 
     public void deleteEvent(Long id) {
