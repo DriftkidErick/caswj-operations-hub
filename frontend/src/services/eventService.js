@@ -20,3 +20,7 @@ export const updateEvent = async (id, event) => {
 
   return response.data;
 };
+
+export const deleteEvent = async (id) => {
+  await axios.delete(`${API_URL}/${id}`);
+};

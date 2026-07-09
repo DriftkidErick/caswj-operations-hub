@@ -70,7 +70,6 @@ a {
     );
 
   color: white;
-
   overflow-y: auto;
 }
 
@@ -82,21 +81,31 @@ a {
 }
 
 .brand-title {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-size: 34px;
   line-height: 1;
   letter-spacing: 1px;
+
   color: #ffffff;
 }
 
 .brand-subtitle {
   margin-top: 8px;
 
-  font-family: Georgia, "Times New Roman", serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-size: 9px;
   line-height: 1.25;
 
   letter-spacing: 1.1px;
+
   color: rgba(255, 255, 255, 0.92);
 }
 
@@ -105,15 +114,18 @@ a {
 .sidebar-nav {
   display: flex;
   flex-direction: column;
+
   gap: 7px;
 }
 
 .nav-link {
   display: flex;
   align-items: center;
+
   gap: 13px;
 
   min-height: 48px;
+
   padding: 0 15px;
 
   border-radius: 8px;
@@ -154,6 +166,7 @@ a {
   min-height: 100vh;
 
   margin-left: 220px;
+
   padding: 28px 40px 50px;
 
   background:
@@ -172,7 +185,9 @@ a {
   line-height: 1.2;
 
   color: #0a1f3d;
+
   font-weight: 750;
+
   letter-spacing: -0.5px;
 }
 
@@ -182,6 +197,7 @@ a {
 
 .sidebar-art {
   position: absolute;
+
   left: 0;
   bottom: 0;
 
@@ -189,6 +205,7 @@ a {
   height: 190px;
 
   overflow: hidden;
+
   pointer-events: none;
 
   z-index: 1;
@@ -197,6 +214,7 @@ a {
 .sidebar-art svg {
   width: 100%;
   height: 100%;
+
   display: block;
 }
 
@@ -221,25 +239,6 @@ a {
 }
 
 /* =========================
-   RESPONSIVE SIDEBAR
-========================= */
-
-@media (max-width: 900px) {
-  .sidebar {
-    width: 190px;
-  }
-
-  .main-content {
-    margin-left: 190px;
-    padding: 24px;
-  }
-
-  .nav-link {
-    padding: 0 12px;
-  }
-}
-
-/* =========================
    EVENTS PAGE
 ========================= */
 
@@ -258,6 +257,7 @@ a {
 .new-event-button {
   display: flex;
   align-items: center;
+
   gap: 8px;
 
   padding: 11px 18px;
@@ -269,6 +269,7 @@ a {
   color: #0a1f3d;
 
   font-weight: 700;
+
   cursor: pointer;
 
   transition:
@@ -289,7 +290,9 @@ a {
 
 .modal-overlay {
   position: fixed;
+
   inset: 0;
+
   z-index: 1000;
 
   display: flex;
@@ -334,6 +337,7 @@ a {
   margin: 0;
 
   color: #0a1f3d;
+
   font-size: 23px;
 }
 
@@ -363,6 +367,7 @@ a {
   color: #64748b;
 
   font-size: 24px;
+
   cursor: pointer;
 }
 
@@ -378,6 +383,7 @@ a {
 .event-create-form {
   display: flex;
   flex-direction: column;
+
   gap: 22px;
 }
 
@@ -417,6 +423,7 @@ a {
 
 .form-grid {
   display: grid;
+
   gap: 16px;
 
   margin-top: 16px;
@@ -488,6 +495,7 @@ a {
 
 .form-field textarea {
   min-height: 95px;
+
   resize: vertical;
 }
 
@@ -526,6 +534,7 @@ a {
 
 .template-option:hover {
   border-color: #50c2b5;
+
   background: #f7fcfb;
 
   transform: translateY(-1px);
@@ -533,6 +542,7 @@ a {
 
 .template-option:has(input:checked) {
   border-color: #50c2b5;
+
   background: #eefaf8;
 
   box-shadow:
@@ -831,6 +841,111 @@ a {
 }
 
 /* =========================
+   EVENT CARD ACTIONS
+========================= */
+
+.event-card-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  flex-shrink: 0;
+}
+
+.event-icon-button {
+  width: 34px;
+  height: 34px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  padding: 0;
+
+  border: 1px solid #dfe5ec;
+  border-radius: 8px;
+
+  background-color: #ffffff;
+  color: #64748b;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.event-icon-button:hover {
+  transform: translateY(-2px);
+}
+
+/* Edit icon */
+
+.event-icon-button.edit:hover {
+  color: #268f84;
+
+  border-color: #8bd3cb;
+
+  background-color: #f0faf8;
+
+  box-shadow:
+    0 4px 10px rgba(38, 143, 132, 0.12);
+}
+
+/* Delete icon */
+
+.event-icon-button.delete:hover {
+  color: #b42318;
+
+  border-color: #efb0aa;
+
+  background-color: #fff4f3;
+
+  box-shadow:
+    0 4px 10px rgba(180, 35, 24, 0.1);
+}
+
+.event-icon-button svg {
+  width: 16px;
+  height: 16px;
+
+  pointer-events: none;
+
+  transition:
+    transform 0.2s ease;
+}
+
+.event-icon-button:hover svg {
+  transform: scale(1.08);
+}
+
+/* =========================
+   RESPONSIVE SIDEBAR
+========================= */
+
+@media (max-width: 900px) {
+  .sidebar {
+    width: 190px;
+  }
+
+  .main-content {
+    margin-left: 190px;
+
+    padding: 24px;
+  }
+
+  .nav-link {
+    padding: 0 12px;
+  }
+}
+
+/* =========================
    RESPONSIVE EVENT FORM
 ========================= */
 
@@ -854,6 +969,7 @@ a {
 
   .form-actions {
     flex-direction: column;
+
     align-items: stretch;
   }
 
@@ -877,11 +993,14 @@ a {
     padding: 12px;
 
     border-right: none;
-    border-bottom: 1px solid #eee5d2;
+
+    border-bottom:
+      1px solid #eee5d2;
   }
 
   .event-day {
     margin-top: 0;
+
     font-size: 24px;
   }
 
@@ -890,32 +1009,8 @@ a {
   }
 
   .event-card-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+    width: 100%;
 
-.event-edit-button {
-  padding: 6px 12px;
-
-  border: 1px solid #d7dee8;
-  border-radius: 7px;
-
-  background: #ffffff;
-  color: #315779;
-
-  font-size: 12px;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition:
-    border-color 0.2s ease,
-    background 0.2s ease;
-}
-
-.event-edit-button:hover {
-  border-color: #50c2b5;
-  background: #f0faf8;
-}
+    justify-content: flex-end;
+  }
 }

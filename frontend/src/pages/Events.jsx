@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { Pencil, Trash2 } from "lucide-react";
+
 import {
   getEvents,
   createEvent,
   updateEvent,
+  deleteEvent,
 } from "../services/eventService";
 
 const emptyFormData = {
@@ -77,6 +80,23 @@ export default function Events() {
     setIsModalOpen(true);
   };
 
+  const handleDelete = async (event) => {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete "${event.title}"?`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      await deleteEvent(event.id);
+      await loadEvents();
+    } catch (error) {
+      console.error("Error deleting event:", error);
+    }
+  };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setEditingEventId(null);
@@ -103,6 +123,29 @@ export default function Events() {
         error
       );
     }
+  };
+
+  const formatTime = (time) => {
+    if (!time) {
+      return "";
+    }
+
+    const [hours, minutes] = time.split(":");
+
+    const date = new Date();
+
+    date.setHours(
+      Number(hours),
+      Number(minutes),
+      0,
+      0
+    );
+
+    return date.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
   };
 
   return (
@@ -230,15 +273,19 @@ export default function Events() {
                       <option value="">
                         Select status
                       </option>
+
                       <option value="Planned">
                         Planned
                       </option>
+
                       <option value="Confirmed">
                         Confirmed
                       </option>
+
                       <option value="Completed">
                         Completed
                       </option>
+
                       <option value="Cancelled">
                         Cancelled
                       </option>
@@ -319,6 +366,7 @@ export default function Events() {
                       <option value="false">
                         No
                       </option>
+
                       <option value="true">
                         Yes
                       </option>
@@ -339,9 +387,11 @@ export default function Events() {
                       <option value="">
                         Select
                       </option>
+
                       <option value="Free">
                         Free
                       </option>
+
                       <option value="Paid">
                         Paid
                       </option>
@@ -388,7 +438,10 @@ export default function Events() {
                     />
 
                     <span>
-                      <strong>Class / Workshop</strong>
+                      <strong>
+                        Class / Workshop
+                      </strong>
+
                       <small>
                         Educational class or workshop event
                       </small>
@@ -408,7 +461,10 @@ export default function Events() {
                     />
 
                     <span>
-                      <strong>Festival</strong>
+                      <strong>
+                        Festival
+                      </strong>
+
                       <small>
                         Multi-act or multi-day festival
                       </small>
@@ -428,7 +484,10 @@ export default function Events() {
                     />
 
                     <span>
-                      <strong>General Event</strong>
+                      <strong>
+                        General Event
+                      </strong>
+
                       <small>
                         Fundraiser, community event, or other
                       </small>
@@ -451,6 +510,7 @@ export default function Events() {
                       <strong>
                         Jazz / Community Band Concert
                       </strong>
+
                       <small>
                         Jazz ensemble or community band performance
                       </small>
@@ -473,6 +533,7 @@ export default function Events() {
                       <strong>
                         Symphony Concert
                       </strong>
+
                       <small>
                         Full orchestra or symphony concert
                       </small>
@@ -495,6 +556,7 @@ export default function Events() {
                       <strong>
                         Theatre Production
                       </strong>
+
                       <small>
                         Play, musical, or dramatic production
                       </small>
@@ -544,6 +606,7 @@ export default function Events() {
         </div>
       )}
 
+      {/* EVENT LIST */}
       <div className="events-list">
         {events.length === 0 ? (
           <div className="empty-state">
@@ -576,7 +639,9 @@ export default function Events() {
               <div className="event-card-content">
                 <div className="event-card-top">
                   <div>
-                    <h3>{event.title}</h3>
+                    <h3>
+                      {event.title}
+                    </h3>
 
                     <div className="event-meta">
                       {event.organization && (
@@ -608,10 +673,22 @@ export default function Events() {
 
                     <button
                       type="button"
-                      className="event-edit-button"
+                      className="event-icon-button edit"
                       onClick={() => handleEdit(event)}
+                      aria-label={`Edit ${event.title}`}
+                      title="Edit event"
                     >
-                      Edit
+                      <Pencil size={16} />
+                    </button>
+
+                    <button
+                      type="button"
+                      className="event-icon-button delete"
+                      onClick={() => handleDelete(event)}
+                      aria-label={`Delete ${event.title}`}
+                      title="Delete event"
+                    >
+                      <Trash2 size={16} />
                     </button>
                   </div>
                 </div>
@@ -633,10 +710,14 @@ export default function Events() {
                     event.endTime) && (
                     <p className="event-time">
                       Time:{" "}
-                      {event.startTime || "TBD"}
+                      {event.startTime
+                        ? formatTime(event.startTime)
+                        : "TBD"}
 
                       {event.endTime &&
-                        ` - ${event.endTime}`}
+                        ` - ${formatTime(
+                          event.endTime
+                        )}`}
                     </p>
                   )}
 
